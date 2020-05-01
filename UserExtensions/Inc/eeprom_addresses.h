@@ -10,7 +10,7 @@
 
 #include "main.h"
 // Change this to the amount of currently registered variables
-#define NB_OF_VAR	18
+#define NB_OF_VAR	20
 
 extern uint16_t VirtAddVarTab[NB_OF_VAR];
 
