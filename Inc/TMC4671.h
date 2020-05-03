@@ -120,7 +120,7 @@ struct TMC4671Biquad{
 };
 
 
-class TMC4671 : public MotorDriver, public Encoder, public PersistentStorage, public CommandHandler{
+class TMC4671 : public MotorDriver, public Encoder, public CommandHandler{
 public:
 
 	static ClassIdentifier info;

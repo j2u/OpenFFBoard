@@ -36,8 +36,7 @@ const std::vector<class_entry<MotorDriver>> motor_sources =
 {
 		add_class<MotorDriver,MotorDriver>(),
 		add_class<TMC4671,MotorDriver>(),
-		add_class<MotorPWM_RC,MotorDriver>(),
-		add_class<MotorPWM_HB,MotorDriver>(),
+		add_class<MotorPWM,MotorDriver>(),
 };
 // 0-63 valid ids
 std::vector<class_entry<Encoder>> encoder_sources =
@@ -124,12 +123,8 @@ void FFBWheel::saveFlash(){
 		btn->saveFlash();
 	}
 
-	if(drv->getInfo().id == TMC4671::info.id){
-		TMC4671* drv = static_cast<TMC4671*>(this->drv);
-		drv->saveFlash();
-	}
-
-	ffb->saveFlash();
+	drv->saveFlash(); // Motor driver
+	ffb->saveFlash(); // FFB handler
 }
 
 /*

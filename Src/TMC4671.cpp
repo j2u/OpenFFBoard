@@ -346,22 +346,18 @@ bool TMC4671::checkABN(){
 		phiE_abn = (int16_t)(readReg(0x2A)>>16);
 		int16_t err = abs(phiE_abn - angle);
 		// Wait more
-		while(err > 4000 && c++ < 100){
+		while(err > 6000 && c++ < 100){
 			phiE_abn = (int16_t)(readReg(0x2A)>>16);
 			err = abs(phiE_abn - angle);
 			HAL_Delay(10);
 		}
 		// still high difference?
-		if(err > 4000){
+		if(err > 6000){
 			result = false;
 			break;
 		}
 	}
-	// Encoder did not move at all
-	phiE_abn = (int16_t)(readReg(0x2A)>>16);
-	if(phiE_abn_start ==  phiE_abn){
-		result = false;
-	}
+
 
 	setUdUq(0, 0);
 	setPhiE_ext(0);
