@@ -187,6 +187,11 @@ void FFBWheel::update(){
 		if(abs(torque) == power){
 			pulseClipLed();
 		}
+
+		// If encoder was inverted also invert torque again so effects are correct
+		if(aconf.invertX){
+			torque = -torque;
+		}
 		drv->turn(torque);
 	}
 }
@@ -356,6 +361,11 @@ int32_t FFBWheel::getEncValue(Encoder* enc,uint16_t degrees){
 	}
 	float angle = 360.0*((float)enc->getPos()/(float)enc->getCpr());
 	int32_t val = (0xffff / (float)degrees) * angle;
+
+	// Flip encoder value (Also has to flip torque)
+	if(aconf.invertX){
+		val = -val;
+	}
 	return val;
 }
 
@@ -377,9 +387,6 @@ void FFBWheel::send_report(){
 		}
 
 	// Encoder
-	if(aconf.invertX){
-		lastScaledEnc = -lastScaledEnc;
-	}
 	reportHID.X = clip(lastScaledEnc,-0x7fff,0x7fff);
 	// Analog values read by DMA
 	uint16_t analogMask = this->aconf.analogmask;
