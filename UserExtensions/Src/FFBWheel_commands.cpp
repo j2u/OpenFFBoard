@@ -83,6 +83,12 @@ bool FFBWheel::command(ParsedCommand* cmd,std::string* reply){
 		}else if(cmd->type == CMDtype::set){
 			aconf.analogmask = cmd->val;
 		}
+	}else if(cmd->cmd == "invertx"){
+		if(cmd->type == CMDtype::get){
+			*reply+= aconf.invertX ? "1" : "0";
+		}else if(cmd->type == CMDtype::set){
+			aconf.invertX = cmd->val >= 1 ? true : false;
+		}
 	}else if(cmd->cmd == "ppr"){
 		if(cmd->type == CMDtype::get){
 			*reply+=std::to_string(this->enc->getCpr());
@@ -109,7 +115,7 @@ bool FFBWheel::command(ParsedCommand* cmd,std::string* reply){
 	}else if(cmd->cmd == "help"){
 		flag = false;
 		*reply += "FFBWheel commands:\n"
-				"power,zeroenc,enctype,degrees,idlespring,friction,ppr,drvtype,btntype,lsbtn,btnnum,btntypes,btnpol,btncut,axismask,ffbactive\n"; // TODO
+				"power,zeroenc,enctype,degrees,idlespring,friction,invertx,ppr,drvtype,btntype,lsbtn,btnnum,btntypes,btnpol,btncut,axismask,ffbactive\n"; // TODO
 	}else{
 		flag = false;
 	}

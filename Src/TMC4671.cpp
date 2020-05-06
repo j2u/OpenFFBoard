@@ -394,6 +394,9 @@ void TMC4671::setup_ABN_Enc(TMC4671ABNConf encconf){
 		// Check if aligned
 		if(checkABN()){
 			abnconf.initialized = true;
+			printf("Initialized TMC %d",this->address);
+		}else{
+			printf("Encoder init failed. Check poles and PPR settings\n");
 		}
 	}
 

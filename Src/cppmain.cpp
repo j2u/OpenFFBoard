@@ -32,7 +32,7 @@ void cppmain() {
 
 
 	mainclass = mainchooser.Create(main_id);//(SelectMain(main_id));
-	mainclass->usbInit();
+	usb_init();
 
 	while(running){
 
@@ -42,6 +42,9 @@ void cppmain() {
 
 }
 
+void usb_init(){
+	mainclass->usbInit();
+}
 
 
 

@@ -100,3 +100,8 @@ void USB_SOF(){
 	if(mainclass!=nullptr)
 		mainclass->SOF();
 }
+
+//void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd){
+//	pulseErrLed();
+//
+//}

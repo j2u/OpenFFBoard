@@ -30,6 +30,7 @@ struct FFBWheelConfig{
 	uint8_t drvtype = 0;
 	uint8_t enctype = 0;
 	uint8_t axes = 1;
+
 };
 
 enum class AnalogOffset : uint8_t{
@@ -39,7 +40,7 @@ enum class AnalogOffset : uint8_t{
 struct FFBWheelAnalogConfig{
 	uint8_t analogmask = 0xff;
 	AnalogOffset offsetmode;
-
+	bool invertX = false;
 };
 
 

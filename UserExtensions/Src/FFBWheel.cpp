@@ -179,7 +179,6 @@ void FFBWheel::update(){
 	}
 
 
-
 	if(endstopTorque!=lasttorque || updateTorque){
 		// Update torque
 		torque = torque+endstopTorque;
@@ -378,6 +377,9 @@ void FFBWheel::send_report(){
 		}
 
 	// Encoder
+	if(aconf.invertX){
+		lastScaledEnc = -lastScaledEnc;
+	}
 	reportHID.X = clip(lastScaledEnc,-0x7fff,0x7fff);
 	// Analog values read by DMA
 	uint16_t analogMask = this->aconf.analogmask;
@@ -427,12 +429,12 @@ uint16_t FFBWheel::encodeConfToInt(FFBWheelConfig conf){
 FFBWheelAnalogConfig FFBWheel::decodeAnalogConfFromInt(uint16_t val){
 	FFBWheelAnalogConfig aconf;
 	aconf.analogmask = val & 0xff;
-	aconf.offsetmode = AnalogOffset((val >> 8) & 0x3);
+	aconf.invertX = (val >> 8) & 0x1;
 	return aconf;
 }
 uint16_t FFBWheel::encodeAnalogConfToInt(FFBWheelAnalogConfig conf){
 	uint16_t val = conf.analogmask & 0xff;
-	val |= (conf.analogmask & 0x3) << 8;
+	val |= (conf.invertX & 0x1) << 8;
 	return val;
 }
 

@@ -26,7 +26,7 @@ extern "C" {
 #include "eeprom_addresses.h"
 
 void cppmain();
-
+void usb_init();
 
 #ifdef __cplusplus
 }
